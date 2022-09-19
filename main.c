@@ -11,6 +11,7 @@ static	t_input	*init_data(char **argv, int argc)
 	data->time_die = ft_atoi_philo(argv[2]);
 	data->time_eat = ft_atoi_philo(argv[3]);
 	data->time_sleep = ft_atoi_philo(argv[4]);
+	data->die_aux = data->time_die;
 	if (argc == 6)
 		data->n_eat = ft_atoi_philo(argv[5]);
 	data->mutex_fork = malloc(sizeof(pthread_mutex_t) * data->n_philo);

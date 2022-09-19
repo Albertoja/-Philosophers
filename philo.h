@@ -8,12 +8,25 @@
 # include <sys/time.h>
 # include <pthread.h>
 
+
+# define RESET				"\x1b[0m"
+# define WHITE				"\x1b[1m"
+# define GRAY				"\x1b[2m"
+# define BLACK				"\x1b[30m"
+# define RED				"\x1b[31m"
+# define GREEN				"\x1b[32m"
+# define YELLOW				"\x1b[33m"
+# define BLUE				"\x1b[34m"
+# define PURPLE				"\x1b[35m"
+# define CYAN				"\x1b[36m"
+
 typedef struct s_input {
 				int	n_philo;
 	unsigned	int	time_die;
 	unsigned	int	time_eat;
 	unsigned	int	time_sleep;
 	unsigned	int	n_eat;
+	unsigned	int	die_aux;
 	pthread_mutex_t		*mutex_fork;
 	pthread_mutex_t		mutex_print;
 

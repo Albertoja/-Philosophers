@@ -27,4 +27,3 @@ t_list	*create_lst_philo(t_input *data)
 		ft_lstadd_back(&philo, create_philo(aux++, data));
 	return(philo);
 }
-
