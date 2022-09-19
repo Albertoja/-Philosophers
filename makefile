@@ -1,4 +1,4 @@
-SRCS	= main.c philo_utils.c error.c new_philo.c start.c routine.c
+SRCS	= main.c philo_utils.c error.c new_philo.c start.c routine.c timer.c
 
 OBJS	= ${SRCS:.c=.o}
 

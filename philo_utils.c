@@ -79,3 +79,37 @@ t_list	*ft_lstnew(int philo)
 	(list)->next = NULL;
 	return (list);
 }
+
+unsigned long int	c_time(unsigned long int time_start)
+{
+	struct timeval		time;
+	unsigned long int	ms;
+
+	gettimeofday(&time, NULL);
+	ms = (time.tv_sec * 1000) + (time.tv_usec / 1000) - time_start;
+	return (ms);
+}
+
+int	ft_usleep(t_list *philos, unsigned long int time)
+{
+	unsigned long int	slept;
+
+	slept = c_time(philos->data->time_start);
+	while (c_time(philos->data->time_start) - slept < time)
+	{
+		usleep(50);
+		if (check_dead(philos) == 1)
+			return (0);
+	}
+	return (0);
+}
+
+size_t	ft_strlen(const char *str)
+{
+	size_t	length;
+
+	length = 0;
+	while (str[length])
+		length++;
+	return (length);
+}
