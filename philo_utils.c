@@ -113,3 +113,17 @@ size_t	ft_strlen(const char *str)
 		length++;
 	return (length);
 }
+
+void	ft_lstclear(t_list *philos)
+{
+	t_list	*temp;
+
+	temp = philos;
+	while (temp)
+	{
+		philos = temp;
+		temp = temp->next;
+		pthread_mutex_destroy(&philos->mutex_ate);
+		free(philos);
+	}
+}

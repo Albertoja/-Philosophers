@@ -29,14 +29,12 @@ int	print_mutex(t_list *philo, char *str, char *color)
 void	ft_eat(t_list *philo)
 {
 	pthread_mutex_lock(&philo->data->mutex_dead);
+	philo->last_dinner = c_time(philo->data->time_start);
 	pthread_mutex_unlock(&philo->data->mutex_dead);
 	pthread_mutex_lock(&philo->mutex_ate);
-	philo->data->aux_eat++;
-	if(philo->data->aux_eat == philo->data->n_eat)
-		
+	philo->nbr_ate++;
 	pthread_mutex_unlock(&philo->mutex_ate);
 	ft_usleep(philo, philo->data->time_eat);
-	philo->last_dinner = c_time(philo->data->time_start);
 	pthread_mutex_unlock(&philo->data->mutex_fork[philo->philo]);
 	pthread_mutex_unlock(&philo->data->mutex_fork[philo->left_fork]);
 }
@@ -66,7 +64,7 @@ void	*ft_routine(void *temp)
 	philo->last_dinner = c_time(philo->data->time_start);
 	pthread_mutex_unlock(&philo->data->mutex_dead);
 	if (philo->philo % 2 != 0)
-		usleep(100);
+		ft_usleep(philo, 20);
 	while (1)
 	{
 		if (start_eating(philo) == 1)

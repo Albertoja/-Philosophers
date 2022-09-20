@@ -26,15 +26,15 @@ typedef struct s_input {
 	unsigned	int	time_die;
 	unsigned	int	time_eat;
 	unsigned	int	time_sleep;
-	unsigned	int	n_eat;
+	int				n_eat;
 	unsigned	int	die_aux;
 	unsigned long int	time_start;
 	int					dead;
 	char				*forks;
-	unsigned	int	aux_eat;
 	pthread_mutex_t		mutex_dead;
 	pthread_mutex_t		*mutex_fork;
 	pthread_mutex_t		mutex_print;
+	pthread_mutex_t		*mutex_eat;
 
 }	t_input;
 
@@ -67,5 +67,6 @@ int	ft_usleep(t_list *philos, unsigned long int time);
 int	check_dead(t_list *philos);
 size_t	ft_strlen(const char *str);
 unsigned long int ft_timer(unsigned long int pretime);
+void	ft_lstclear(t_list *lst);
 
 #endif
