@@ -1,23 +1,22 @@
-#include "philo.h"
-static	t_input	*init_data(char **argv, int argc)
-{
-	t_input	*data;
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/20 21:06:47 by aespinos          #+#    #+#             */
+/*   Updated: 2022/09/20 21:15:25 by aespinos         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-	int	i;
+#include "philo.h"
+
+static	t_input	*init_data_2(t_input *data)
+{
+	int		i;
 
 	i = 0;
-	data = malloc(sizeof(t_input));
-	data->time_start = 0;
-	data->n_philo = ft_atoi_philo(argv[1]);
-	data->time_die = ft_atoi_philo(argv[2]);
-	data->time_eat = ft_atoi_philo(argv[3]);
-	data->time_sleep = ft_atoi_philo(argv[4]);
-	data->dead = -1;
-	data->die_aux = data->time_die;
-	if (argc == 6)
-		data->n_eat = ft_atoi_philo(argv[5]);
-	else
-		data->n_eat = -1;
 	data->mutex_fork = malloc(sizeof(pthread_mutex_t) * data->n_philo);
 	data->mutex_eat = malloc(sizeof(pthread_mutex_t) * data->n_philo);
 	pthread_mutex_init(&data->mutex_dead, NULL);
@@ -33,41 +32,48 @@ static	t_input	*init_data(char **argv, int argc)
 		pthread_mutex_init(&data->mutex_eat[i], NULL);
 		i++;
 	}
-	return(data);
+	return (data);
 }
 
-void leaks()
+static	t_input	*init_data(char **argv, int argc)
 {
-	system("leaks philo");
+	t_input	*data;
+
+	data = malloc(sizeof(t_input));
+	data->time_start = 0;
+	data->n_philo = ft_atoi_philo(argv[1]);
+	data->time_die = ft_atoi_philo(argv[2]);
+	data->time_eat = ft_atoi_philo(argv[3]);
+	data->time_sleep = ft_atoi_philo(argv[4]);
+	data->dead = -1;
+	if (argc == 6)
+		data->n_eat = ft_atoi_philo(argv[5]);
+	else
+		data->n_eat = -1;
+	data = init_data_2(data);
+	return (data);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_input	*data;
 	t_list	*philos;
 	int		a;
-	t_list	*temp;
-	int		n;
 
-	//atexit(leaks);
 	a = 1;
-	n = 0;
 	if (argc < 5 || argc > 6)
 		ft_error("Invalid arguments");
-	while (argv[a])
-	{
+	while (argv[++a])
 		if (ft_atoi_philo(argv[a]) == -1)
 			ft_error("Invalid arguments");
-		a++;
-	}
 	data = init_data(argv, argc);
 	philos = create_lst_philo(data);
 	ft_start(philos);
 	pthread_mutex_destroy(&data->mutex_dead);
 	pthread_mutex_destroy(&data->mutex_print);
-	temp = philos;
-	while (++n < data->n_philo)
-		pthread_mutex_destroy(&data->mutex_fork[n]);
+	a = 0;
+	while (++a < data->n_philo)
+		pthread_mutex_destroy(&data->mutex_fork[a]);
 	free(data->forks);
 	free(data->mutex_fork);
 	free(data->mutex_eat);

@@ -1,44 +1,43 @@
-#include "philo.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/20 21:06:56 by aespinos          #+#    #+#             */
+/*   Updated: 2022/09/20 21:25:57 by aespinos         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static unsigned long long int	ft_check(unsigned long long int result, int sig)
-{
-	if (result > 9223372036854775807 && sig < 0)
-		return (0);
-	else if (result > 9223372036854775807 && sig > 0)
-		return (-1);
-	else
-		return (result);
-}
+#include "philo.h"
 
 int	ft_atoi_philo(const char *str)
 {
-	int						x;
-	int						sig;
-	unsigned long long int	result;
+	unsigned long long int	ans;
+	int						sign;
+
+	ans = 0;
+	sign = 1;
+	while ((*str >= 9 && *str <= 13) || *str == 32)
+		str++;
+	if (*str == 45)
 	{
-		x = 0;
-		sig = 1;
-		result = 0;
-		while (str[x] == ' ' || str[x] == '\t' || str[x] == '\n'
-			|| str[x] == '\v' || str[x] == '\f' || str[x] == '\r')
-			x++;
-		while (str[x] == '+' || str[x] == '-')
-		{
-			if (str[x] == '-')
-				sig = sig * (-1);
-			if (str[x + 1] == '+' || str[x + 1] == '-')
-				return (0);
-			x++;
-		}
-		while (str[x] >= '0' && str[x] <= '9')
-		{
-			result = (str[x] - 48) + (result * 10);
-			x++;
-		}
-		if (str[x] && (str[x] < '0' || str[x] > '9'))
-			return(-1);
-		return ((int)ft_check(result, sig) * sig);
+		sign *= -1;
+		str++;
 	}
+	else if (*str == 43)
+		str++;
+	while (*str > 47 && *str < 58)
+	{
+		ans = ans * 10 + (*str - 48);
+		str++;
+	}
+	if (ans > 9223372036854775807 && sign < 0)
+		return (0);
+	else if (ans > 9223372036854775807 && sign > 0)
+		return (-1);
+	return ((int)(ans * sign));
 }
 
 t_list	*ft_lstlast(t_list *lst)
