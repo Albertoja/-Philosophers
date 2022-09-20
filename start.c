@@ -38,8 +38,8 @@ void	ft_start(t_list *philo)
 		ft_usleep(philo, 1);
 		if (death_checker(temp) == 1)
 			exit(0);
-		// if (temp->data->nbr_to_fin != -1 && all_ate(temp) == 1)
-		// 	break ;
+		//if (data->n_eat && nbr_ate == philo->data->n_philo)
+		//	exit(0);
 	}
 	while (temp)
 	{

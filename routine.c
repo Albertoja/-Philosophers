@@ -31,7 +31,9 @@ void	ft_eat(t_list *philo)
 	pthread_mutex_lock(&philo->data->mutex_dead);
 	pthread_mutex_unlock(&philo->data->mutex_dead);
 	pthread_mutex_lock(&philo->mutex_ate);
-	philo->nbr_ate++;
+	philo->data->aux_eat++;
+	if(philo->data->aux_eat == philo->data->n_eat)
+		
 	pthread_mutex_unlock(&philo->mutex_ate);
 	ft_usleep(philo, philo->data->time_eat);
 	philo->last_dinner = c_time(philo->data->time_start);
@@ -41,21 +43,10 @@ void	ft_eat(t_list *philo)
 
 int	start_eating(t_list	*philo)
 {
-	// pthread_mutex_lock(&philo->data->mutex_fork[philo->left_fork]);
-	// if (print_mutex(philo, " has taken a fork", RESET) == 1
-	// 	|| ft_strlen(philo->data->forks) == 1)
-	// {
-	// 	pthread_mutex_unlock(&philo->data->mutex_fork[philo->left_fork]);
-	// 	write(1, "a\n", 2);
-	// 	return (1);
-	// }
-	// pthread_mutex_lock(&philo->data->mutex_fork[philo->philo]);
-	// if (print_mutex(philo, " has taken a fork", RESET) == 1)
-	// {
-	// 	pthread_mutex_unlock(&philo->data->mutex_fork[philo->philo]);
-	// 	pthread_mutex_unlock(&philo->data->mutex_fork[philo->left_fork]);
-	// 	return (1);
-	// }
+	pthread_mutex_lock(&philo->data->mutex_fork[philo->left_fork]);
+	print_mutex(philo, " has taken a fork", RESET);
+	pthread_mutex_lock(&philo->data->mutex_fork[philo->philo]);
+	print_mutex(philo, " has taken a fork", RESET);
 	if (print_mutex(philo, " is eating", GREEN) == 1)
 	{
 		pthread_mutex_unlock(&philo->data->mutex_fork[philo->philo]);
@@ -75,7 +66,7 @@ void	*ft_routine(void *temp)
 	philo->last_dinner = c_time(philo->data->time_start);
 	pthread_mutex_unlock(&philo->data->mutex_dead);
 	if (philo->philo % 2 != 0)
-		usleep(10);
+		usleep(100);
 	while (1)
 	{
 		if (start_eating(philo) == 1)

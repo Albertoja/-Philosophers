@@ -31,6 +31,7 @@ typedef struct s_input {
 	unsigned long int	time_start;
 	int					dead;
 	char				*forks;
+	unsigned	int	aux_eat;
 	pthread_mutex_t		mutex_dead;
 	pthread_mutex_t		*mutex_fork;
 	pthread_mutex_t		mutex_print;

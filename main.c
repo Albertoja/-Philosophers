@@ -13,6 +13,7 @@ static	t_input	*init_data(char **argv, int argc)
 	data->time_eat = ft_atoi_philo(argv[3]);
 	data->time_sleep = ft_atoi_philo(argv[4]);
 	data->dead = -1;
+	data->aux_eat = 0;
 	data->die_aux = data->time_die;
 	if (argc == 6)
 		data->n_eat = ft_atoi_philo(argv[5]);
