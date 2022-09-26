@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:07:00 by aespinos          #+#    #+#             */
-/*   Updated: 2022/09/26 17:01:27 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/09/26 18:51:53 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,12 @@ int	start_eating(t_list	*philo)
 {
 	pthread_mutex_lock(&philo->data->mutex_fork[philo->left_fork]);
 	print_mutex(philo, " has taken a fork", RESET);
+	if (philo->data->n_philo == 1)
+	{
+		ft_usleep(philo, philo->data->time_die);
+		pthread_mutex_unlock(&philo->data->mutex_fork[philo->left_fork]);
+		return (1);
+	}
 	pthread_mutex_lock(&philo->data->mutex_fork[philo->philo]);
 	print_mutex(philo, " has taken a fork", RESET);
 	if (print_mutex(philo, " is eating", GREEN) == 1)

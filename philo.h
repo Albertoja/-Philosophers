@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:06:58 by aespinos          #+#    #+#             */
-/*   Updated: 2022/09/26 16:58:21 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/09/26 18:34:35 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,6 @@ int					check_dead(t_list *philos);
 size_t				ft_strlen(const char *str);
 unsigned long int	ft_timer(unsigned long int pretime);
 void				ft_lstclear(t_list *lst);
+void				ft_movidas(t_list *philo);
 
 #endif

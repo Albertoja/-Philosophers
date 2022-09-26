@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:06:47 by aespinos          #+#    #+#             */
-/*   Updated: 2022/09/26 17:09:43 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/09/26 19:04:55 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	main(int argc, char **argv)
 		if (ft_atoi_philo(argv[a]) == -1)
 			ft_error("Invalid arguments");
 	data = init_data(argv, argc);
+	if (data->n_philo <= 0)
+		ft_error("Invalid arguments");
 	philos = create_lst_philo(data);
 	ft_start(philos);
 	pthread_mutex_destroy(&data->mutex_dead);

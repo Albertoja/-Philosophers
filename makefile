@@ -8,7 +8,7 @@ CC	= gcc
 
 RM	= rm -f
 
-CFLAGS	= -Wall -Wextra -Werror -g3 -fsanitize=thread
+CFLAGS	= -Wall -Wextra -Werror #-g3 -fsanitize=thread
 
 .c.o:
 		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
