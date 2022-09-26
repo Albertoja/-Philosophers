@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:06:47 by aespinos          #+#    #+#             */
-/*   Updated: 2022/09/20 21:15:25 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/09/26 17:09:43 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,15 @@ static	t_input	*init_data_2(t_input *data)
 
 	i = 0;
 	data->mutex_fork = malloc(sizeof(pthread_mutex_t) * data->n_philo);
-	data->mutex_eat = malloc(sizeof(pthread_mutex_t) * data->n_philo);
 	pthread_mutex_init(&data->mutex_dead, NULL);
 	pthread_mutex_init(&data->mutex_print, NULL);
+	pthread_mutex_init(&data->mutex_eat, NULL);
 	while (i < data->n_philo)
 	{
 		pthread_mutex_init(&data->mutex_fork[i], NULL);
 		i++;
 	}
 	i = 0;
-	while (i < data->n_philo)
-	{
-		pthread_mutex_init(&data->mutex_eat[i], NULL);
-		i++;
-	}
 	return (data);
 }
 
@@ -71,12 +66,11 @@ int	main(int argc, char **argv)
 	ft_start(philos);
 	pthread_mutex_destroy(&data->mutex_dead);
 	pthread_mutex_destroy(&data->mutex_print);
+	pthread_mutex_destroy(&data->mutex_eat);
 	a = 0;
 	while (++a < data->n_philo)
 		pthread_mutex_destroy(&data->mutex_fork[a]);
-	free(data->forks);
 	free(data->mutex_fork);
-	free(data->mutex_eat);
 	free(data);
 	ft_lstclear(philos);
 	exit(0);

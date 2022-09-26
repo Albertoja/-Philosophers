@@ -1,4 +1,4 @@
-SRCS	= main.c philo_utils.c error.c new_philo.c start.c routine.c timer.c
+SRCS	= main.c philo_utils.c error.c new_philo.c start.c routine.c philo_utils_2.c 
 
 OBJS	= ${SRCS:.c=.o}
 
@@ -8,7 +8,7 @@ CC	= gcc
 
 RM	= rm -f
 
-CFLAGS	= -Wall -Wextra -Werror #-g3 -fsanitize=thread
+CFLAGS	= -Wall -Wextra -Werror -g3 -fsanitize=thread
 
 .c.o:
 		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}

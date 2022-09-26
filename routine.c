@@ -6,11 +6,12 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:07:00 by aespinos          #+#    #+#             */
-/*   Updated: 2022/09/20 21:07:01 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/09/26 17:01:27 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
 int	check_dead(t_list *philo)
 {
 	pthread_mutex_lock(&philo->data->mutex_dead);
@@ -32,7 +33,7 @@ int	print_mutex(t_list *philo, char *str, char *color)
 		return (1);
 	}
 	printf("%s[%lu ms] philo %d ", color,
-		c_time(philo->data->time_start), philo->philo + 1);
+		ft_timer(philo->data->time_start), philo->philo + 1);
 	printf("%s\n"RESET, str);
 	pthread_mutex_unlock(&philo->data->mutex_print);
 	return (0);
@@ -41,11 +42,11 @@ int	print_mutex(t_list *philo, char *str, char *color)
 void	ft_eat(t_list *philo)
 {
 	pthread_mutex_lock(&philo->data->mutex_dead);
-	philo->last_dinner = c_time(philo->data->time_start);
+	philo->last_dinner = ft_timer(philo->data->time_start);
 	pthread_mutex_unlock(&philo->data->mutex_dead);
-	pthread_mutex_lock(&philo->mutex_ate);
+	pthread_mutex_lock(&philo->data->mutex_eat);
 	philo->nbr_ate++;
-	pthread_mutex_unlock(&philo->mutex_ate);
+	pthread_mutex_unlock(&philo->data->mutex_eat);
 	ft_usleep(philo, philo->data->time_eat);
 	pthread_mutex_unlock(&philo->data->mutex_fork[philo->philo]);
 	pthread_mutex_unlock(&philo->data->mutex_fork[philo->left_fork]);
@@ -70,10 +71,10 @@ int	start_eating(t_list	*philo)
 void	*ft_routine(void *temp)
 {
 	t_list	*philo;
-	
+
 	philo = (t_list *)temp;
 	pthread_mutex_lock(&philo->data->mutex_dead);
-	philo->last_dinner = c_time(philo->data->time_start);
+	philo->last_dinner = ft_timer(philo->data->time_start);
 	pthread_mutex_unlock(&philo->data->mutex_dead);
 	if (philo->philo % 2 != 0)
 		ft_usleep(philo, 20);
@@ -86,6 +87,5 @@ void	*ft_routine(void *temp)
 		ft_usleep(philo, philo->data->time_sleep);
 		if (print_mutex(philo, " is thinking", YELLOW) == 1)
 			return (0);
-		//sleep(1);
 	}
 }

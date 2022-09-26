@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:06:58 by aespinos          #+#    #+#             */
-/*   Updated: 2022/09/20 21:19:53 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/09/26 16:58:21 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,12 @@ typedef struct s_input {
 	pthread_mutex_t		mutex_dead;
 	pthread_mutex_t		*mutex_fork;
 	pthread_mutex_t		mutex_print;
-	pthread_mutex_t		*mutex_eat;
+	pthread_mutex_t		mutex_eat;
 
 }	t_input;
 
 typedef struct s_list {
 	pthread_t			thread;
-	pthread_mutex_t		mutex_ate;
 	int					nbr_ate;
 	int					philo;
 	int					left_fork;
