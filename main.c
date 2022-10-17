@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:06:47 by aespinos          #+#    #+#             */
-/*   Updated: 2022/09/26 19:04:55 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/10/17 17:02:04 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ static	t_input	*init_data(char **argv, int argc)
 		data->n_eat = ft_atoi_philo(argv[5]);
 	else
 		data->n_eat = -1;
+	if (data->n_eat == 0)
+		exit(0);
 	data = init_data_2(data);
 	return (data);
 }

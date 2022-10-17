@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:07:05 by aespinos          #+#    #+#             */
-/*   Updated: 2022/09/26 17:01:42 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/10/17 16:52:30 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	ft_atoi_philo(const char *str)
 		while (str[x] == '+' || str[x] == '-')
 		{
 			if (str[x] == '-')
-				sig = sig * (-1);
+				ft_error("Invalid arguments");
 			if (str[x + 1] == '+' || str[x + 1] == '-')
 				return (0);
 			x++;
